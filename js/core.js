@@ -5,7 +5,7 @@ const USERS_URL = './databases/users.json';
 let allProjectsData = []; 
 let currentTypeFilter = 'all';
 let currentPlatFilter = 'all';
-let currentUser = JSON.parse(localStorage.getItem('kristall_user')) || null;
+let currentUser = JSON.parse(localStorage.getItem('user')) || null;
 
 // ФИРМЕННЫЕ ВСПОЛЫВАЮЩИЕ УВЕДОМЛЕНИЯ KRISTALL (БЕЗ ALERT)
 function showKristallToast(message, icon = "⚡") {
@@ -20,9 +20,9 @@ function localRegister(username, email, password) {
     const newUser = {
         username: username, email: email, password: password,
         role: "Пользователь", clearance_level: 1, level: 1, xp: 0, balance: 0,  
-        avatar_url: "", description: "Новобранец KristallCommunity.", inventory: ["👾 Значок Новичка"], avatar_color: "#22d3ee"
+        avatar_url: "", description: "Новобранец Vastaric.", inventory: ["👾 Новичок"], avatar_color: "#22d3ee"
     };
-    localStorage.setItem('kristall_user', JSON.stringify(newUser));
+    localStorage.setItem('user', JSON.stringify(newUser));
     currentUser = newUser;
     showKristallToast(`ID для ${username} успешно создан!`, "🎉");
     updateHeaderProfile();
@@ -39,7 +39,7 @@ async function localLogin(email, password) {
             const globalUser = usersArray.find(u => u.email.toLowerCase() === email.toLowerCase() && u.password === password);
             if (globalUser) {
                 showKristallToast(`С возвращением, ${globalUser.username}!`, "👑");
-                localStorage.setItem('kristall_user', JSON.stringify(globalUser));
+                localStorage.setItem('user', JSON.stringify(globalUser));
                 currentUser = globalUser;
                 updateHeaderProfile();
                 document.getElementById('auth-modal').style.display = 'none';
