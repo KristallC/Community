@@ -112,9 +112,8 @@ async function loadProjectsPage() {
                     badgesHTML += `<span class="badge" style="background-color: ${color}; padding: 3px 8px; border-radius: 4px; font-size: 10px; font-weight: bold; color: white; white-space: nowrap;">${plat}</span>`;
                 });
             }
-
-            // ИСПРАВЛЕНО: Убрали склеивание ТОП-написи с платформами. 
-            // Теперь ярлык создается отдельно и только внутри обложки!
+ 
+            // Ярлык создается отдельно и только внутри обложки!
             const topLabelHTML = project.is_featured === true ? `<span class="featured-badge">ТОП</span>` : '';
 
             const hasImages = project.screenshots && project.screenshots.length > 0;
@@ -134,7 +133,7 @@ async function loadProjectsPage() {
                             <path d="M12 2 L19 9 L12 22 L5 9 Z" fill="none" stroke="#22d3ee" stroke-width="1.5" />
                             <path d="M12 2 L12 22 M5 9 L19 9 M12 2 L5 9 L14 14 L19 9 L12 2" fill="none" stroke="#22d3ee" stroke-width="1" opacity="0.7" />
                         </svg>
-                        <div style="position: absolute; bottom: 8px; font-size: 9px; color: #22d3ee; letter-spacing: 2px; font-weight: bold; opacity: 0.5; text-transform: uppercase;">Kristall Hub</div>
+                        <div style="position: absolute; bottom: 8px; font-size: 9px; color: #22d3ee; letter-spacing: 2px; font-weight: bold; opacity: 0.5; text-transform: uppercase;">Vastaric</div>
                     </div>`;
             }
             
@@ -199,11 +198,10 @@ async function buildProjectTemplatePage() {
         if (!project) return;
 
         // Заполнение текстов
-        document.title = `${project.title} — KristallCommunity`;
+        document.title = `${project.title} — Vastaric`;
         document.getElementById('project-title').innerText = project.title;
         document.getElementById('project-short-desc').innerText = project.short_desc;
         document.getElementById('project-full-desc').innerText = project.full_desc || "Описание проекта готовится к публикации.";
-        
         document.getElementById('project-platform').innerText = project.platforms ? project.platforms.join(', ') : '-';
         document.getElementById('project-version').innerText = project.version;
         // Вместо обычного текста создаем кликабельную ссылку на user-profile.html по id разработчика
@@ -350,19 +348,6 @@ async function buildProjectTemplatePage() {
                 downloadContainer.insertBefore(unavailableBlock, nextSibling);
             }
         }
-
-        // Блоки особенностей
-        const featuresBlock = document.getElementById('features-block');
-        const featuresContainer = document.getElementById('project-features');
-        if (featuresContainer && project.features && project.features.length > 0) {
-            if (featuresBlock) featuresBlock.style.display = 'block';
-            featuresContainer.innerHTML = '';
-            project.features.forEach(feat => {
-                const li = document.createElement('li');
-                li.innerHTML = `<span style="color: #10b981; font-weight: bold; margin-right: 5px;">✔</span> ${feat}`;
-                featuresContainer.appendChild(li);
-            });
-        } else if (featuresBlock) { featuresBlock.style.display = 'none'; }
 
         // Блок скриншотов
         const scrBlock = document.getElementById('screenshots-block');
@@ -730,8 +715,8 @@ function initMarketplaceFilters() {
 let activePurchaseItem = null; // Запоминаем, какой товар хочет купить юзер
 
 window.buyMarketItem = function(itemName, price, category) {
-    if (!currentUser) { showKristallToast("Войдите в Kristall ID, чтобы совершать покупки!", "🔒"); return; }
-    if (currentUser.balance < price) { showKristallToast("Недостаточно монет на балансе Kristall ID!", "⏳"); return; }
+    if (!currentUser) { showKristallToast("Войдите в Vastaric ID, чтобы совершать покупки!", "🔒"); return; }
+    if (currentUser.balance < price) { showKristallToast("Недостаточно монет на вашем балансе!", "⏳"); return; }
     if (currentUser.inventory.includes(itemName)) { showKristallToast("Этот предмет уже куплен!", "📦"); return; }
 
     const itemData = allMarketData.find(i => i.title === itemName);
@@ -779,17 +764,7 @@ function executeFinalPurchase() {
     currentUser.balance -= price;
     currentUser.inventory.push(itemName);
 
-    if (category === 'role') {
-        if (itemName.includes("Элита") && currentUser.clearance_level < 2) {
-            currentUser.clearance_level = 2;
-            showKristallToast("Ваш уровень допуска повышен до Элиты!", "👑");
-        } else if (itemName.includes("Создатель") && currentUser.clearance_level < 3) {
-            currentUser.clearance_level = 3;
-            showKristallToast("Ваш уровень допуска повышен до Создателя!", "👑");
-        }
-    }
-
-    localStorage.setItem('kristall_user', JSON.stringify(currentUser));
+    localStorage.setItem('user', JSON.stringify(currentUser));
     showKristallToast(`Успешная покупка: ${itemName}!`, "🛒");
     
     // Закрываем окно и обновляем интерфейсы
@@ -843,7 +818,7 @@ function buildMainSideProfile() {
             <div style="width: 50px; height: 50px; border-radius: 50%; border: 2px dashed #374151; display: flex; align-items: center; justify-content: center; background: #111827; margin-bottom: 5px;">
                 <svg viewBox="0 0 24 24" style="width:50%; height:50%; fill:#4b5563;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
             </div>
-            <div style="color: white; font-weight: bold; font-size: 15px;">Kristall ID не найден</div>
+            <div style="color: white; font-weight: bold; font-size: 15px;">ID не найден</div>
             <div style="color: #6b7280; font-size: 12px; margin-bottom: 8px;">Войдите, чтобы копить монеты и открывать сундуки!</div>
             <button class="auth-submit-btn" style="width: 100%; padding: 8px; font-size: 12px;" onclick="document.querySelector('.pc-profile-block').click()">Войти в аккаунт</button>
         `;
@@ -969,7 +944,7 @@ async function loadDeveloperProfile() {
 
         if (!user) {
             usernameEl.innerText = "Пользователь не найден";
-            bioEl.innerText = "Данный профиль ещё не зарегистрирован в Kristall ID.";
+            bioEl.innerText = "Данный профиль ещё не зарегистрирован на платформе.";
             if (avatarWrapper) avatarWrapper.classList.remove('skeleton-shimmer');
             return;
         }
@@ -1095,6 +1070,6 @@ async function loadDeveloperProfile() {
     } catch (e) {
         console.error("Ошибка прогрузки профиля разработчика:", e);
         if (usernameEl) usernameEl.innerText = "Ошибка загрузки";
-        projectsGrid.innerHTML = '<p style="color: #ef4444; text-align: left;">❌ Не удалось подключиться к базе данных Kristall Hub.</p>';
+        projectsGrid.innerHTML = '<p style="color: #ef4444; text-align: left;">❌ Не удалось подключиться к базе данных.</p>';
     }
 }
