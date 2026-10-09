@@ -16,12 +16,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (typeof buildMainSideProfile === 'function') buildMainSideProfile();
     if (typeof applyAvatarBorderColor === 'function') applyAvatarBorderColor();
 
-    // 3. Логика нативной рекламы Kristall Partners (Рекламная система сообщества)
+    // 3. Логика нативной рекламы Partners (Рекламная система сообщества)
     const btnPromo = document.getElementById('btn-promo-ad');
     if (btnPromo) {
         btnPromo.addEventListener('click', () => {
             if (!currentUser) {
-                showKristallToast("Логин заблокирован! Войдите в Kristall ID.", "🔒");
+                showKristallToast("Логин заблокирован! Войдите в профиль.", "🔒");
                 return;
             }
             const now = Date.now();
@@ -35,14 +35,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
             currentUser.balance += 8; // +8 монет за лояльность
             currentUser.last_ad_claim = now;
-            localStorage.setItem('kristall_user', JSON.stringify(currentUser));
+            localStorage.setItem('user', JSON.stringify(currentUser));
             
             showKristallToast("Спасибо за поддержку партнёров! +8 монет.", "📺");
-            if (typeof buildMainSideProfile === 'function') buildMainSideProfile(); 
+            if (typeof buildMainSideProfile === 'function') buildMainSideProfile();
             if (typeof updateHeaderProfile === 'function') updateHeaderProfile();
             
-            // Открываем канал друга
-            window.open("https://youtube.com/@pixellog33?si=eX1Vk56NRqe4GPXh", "_blank"); 
+            // Открываем партнёрскую ссылку
+            window.open("https://kristallc.github.io/Community/", "_blank");
         });
     }
 
@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
             currentUser.balance += 5; // +5 честных монет
             currentUser.last_daily_claim = now;
             
-            localStorage.setItem('kristall_user', JSON.stringify(currentUser));
+            localStorage.setItem('user', JSON.stringify(currentUser));
             showKristallToast("Ежедневный бонус получен! +5 монет.", "📆");
             if (typeof buildProfilePage === 'function') buildProfilePage();
         });
@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
             currentUser.balance += coinWin;
             currentUser.last_chest_claim = now;
 
-            localStorage.setItem('kristall_user', JSON.stringify(currentUser));
+            localStorage.setItem('user', JSON.stringify(currentUser));
             showKristallToast(`Вы получили: +${coinWin} монет.`, "📦");
             if (typeof buildProfilePage === 'function') buildProfilePage();
         });
@@ -186,7 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const logoutBtn = document.getElementById('logout-btn');
     if (logoutBtn) {
         logoutBtn.addEventListener('click', () => {
-            localStorage.removeItem('kristall_user');
+            localStorage.removeItem('user');
             window.location.href = 'index.html';
         });
     }
