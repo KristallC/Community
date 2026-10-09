@@ -1,5 +1,5 @@
 // ==========================================
-// 1. СИСТЕМА КРАСИВЫХ УВЕДОМЛЕНИЙ (КРИСТАЛЛ ТОСТЫ)
+// 1. СИСТЕМА УВЕДОМЛЕНИЙ (ТОСТЫ)
 // ==========================================
 
 // Заменяем системный alert на плавное выезжающее сверху неоновое окно
@@ -21,7 +21,7 @@ function showKristallToast(message, icon = "💎") {
 }
 
 // ==========================================
-// 2. СИСТЕМА КАСТОМИЗАЦИИ И АНИМАЦИЙ РАМОК (DISCORD STYLE)
+// 2. СИСТЕМА КАСТОМИЗАЦИИ И АНИМАЦИЙ РАМОК
 // ==========================================
 function applyAvatarBorderColor() {
     if (!currentUser) return;
@@ -79,7 +79,7 @@ function applyAvatarBorderColor() {
         }
     });
 
-    // 2. НАСТРОЙКА БОКОВОГО ВИДЖЕТА Kristall ID НА ГЛАВНОЙ СТРАНИЦЕ
+    // 2. НАСТРОЙКА БОКОВОГО ВИДЖЕТА ID НА ГЛАВНОЙ СТРАНИЦЕ
     const sideAvatarContainer = document.querySelector('#main-side-profile div');
     if (sideAvatarContainer) {
         // Очищаем старые классы и сбрасываем стили контейнера
@@ -101,7 +101,7 @@ function applyAvatarBorderColor() {
         }
 
         if (isAnimation) {
-            // Включаем нужный CSS-класс анимации для Kristall ID
+            // Включаем нужный CSS-класс анимации для ID
             if (selection === 'decor-fire') { sideAvatarContainer.classList.add('decor-fire-animation'); } 
             else if (selection === 'decor-cyber') { sideAvatarContainer.classList.add('decor-cyber-animation'); }
             else if (selection === 'decor-gold') { sideAvatarContainer.classList.add('decor-gold-animation'); }
@@ -295,7 +295,7 @@ function buildProfilePage() {
     }
 
     document.getElementById('balance-num').innerText = currentUser.balance;
-    document.getElementById('prof-desc-text').innerText = currentUser.description || "Новобранец KristallCommunity.";
+    document.getElementById('prof-desc-text').innerText = currentUser.description || "Новобранец Vastaric.";
 
     document.getElementById('edit-username').value = currentUser.username;
     document.getElementById('edit-avatar').value = currentUser.avatar_url || "";
@@ -364,8 +364,8 @@ function saveProfileChanges(newName, newAv, newPass, newDesc, newColor) {
     currentUser.avatar_color = newColor;
     currentUser.inventory = currentUser.inventory || []; // Защита от стирания!
 
-    localStorage.setItem('kristall_user', JSON.stringify(currentUser));
-    showKristallToast("Данные профиля Kristall ID сохранены!", "⚙️");
+    localStorage.setItem('user', JSON.stringify(currentUser));
+    showKristallToast("Данные вашего профиля сохранены!", "⚙️");
     buildProfilePage();
     updateHeaderProfile();
 }
