@@ -16,37 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (typeof buildMainSideProfile === 'function') buildMainSideProfile();
     if (typeof applyAvatarBorderColor === 'function') applyAvatarBorderColor();
 
-    // 3. Логика нативной рекламы Partners (Рекламная система сообщества)
-    const btnPromo = document.getElementById('btn-promo-ad');
-    if (btnPromo) {
-        btnPromo.addEventListener('click', () => {
-            if (!currentUser) {
-                showKristallToast("Логин заблокирован! Войдите в профиль.", "🔒");
-                return;
-            }
-            const now = Date.now();
-            const lastAdClaim = currentUser.last_ad_claim || 0;
-
-            if (now - lastAdClaim < 86400000) {
-                const hoursLeft = Math.ceil((86400000 - (now - lastAdClaim)) / 3600000);
-                showKristallToast(`Награда уже получена! Перезарядка через ${hoursLeft} ч.`, "⏳");
-                return;
-            }
-
-            currentUser.balance += 8; // +8 монет за лояльность
-            currentUser.last_ad_claim = now;
-            localStorage.setItem('user', JSON.stringify(currentUser));
-            
-            showKristallToast("Спасибо за поддержку партнёров! +8 монет.", "📺");
-            if (typeof buildMainSideProfile === 'function') buildMainSideProfile();
-            if (typeof updateHeaderProfile === 'function') updateHeaderProfile();
-            
-            // Открываем партнёрскую ссылку
-            window.open("https://kristallc.github.io/Community/", "_blank");
-        });
-    }
-
-    // 4. Логика ежедневного бонуса профиля (Раз в 24 часа)
+    // 3. Логика ежедневного бонуса профиля (Раз в 24 часа)
     const btnDaily = document.getElementById('btn-daily-bonus');
     if (btnDaily) {
         btnDaily.addEventListener('click', () => {
@@ -68,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (typeof buildProfilePage === 'function') buildProfilePage();
         });
     }
-    // 5. Логика сундука удачи профиля (Раз в 1 час)
+    // 4. Логика сундука удачи профиля (Раз в 1 час)
     const btnChest = document.getElementById('btn-lucky-chest');
     if (btnChest) {
         btnChest.addEventListener('click', () => {
@@ -93,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 6. Слушатель формы настроек профиля (Сохранение с украшением)
+    // 5. Слушатель формы настроек профиля (Сохранение с украшением)
     const profileForm = document.getElementById('profile-edit-form');
     if (profileForm) {
         profileForm.addEventListener('submit', (e) => {
@@ -114,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 7. Адаптивное бургер-меню для мобилок
+    // 6. Адаптивное бургер-меню для мобилок
     const burgerBtn = document.getElementById('burger-btn');
     const navMenu = document.getElementById('nav-menu');
     if (burgerBtn && navMenu) {
@@ -125,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 8. Открытие модалки авторизации при клике по аватаркам
+    // 7. Открытие модалки авторизации при клике по аватаркам
     const pcProfile = document.querySelector('.pc-profile-block');
     const mobileProfile = document.querySelector('.mobile-profile-block');
     const authModal = document.getElementById('auth-modal');
@@ -141,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('close-auth-btn').addEventListener('click', () => { authModal.style.display = 'none'; });
     }
 
-    // 9. Формы авторизации (Вход и Регистрация)
+    // 8. Формы авторизации (Вход и Регистрация)
     const logForm = document.getElementById('login-form');
     if (logForm) {
         logForm.addEventListener('submit', (e) => {
@@ -166,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 10. Переключение вкладок модалки Вход / Регистрация
+    // 9. Переключение вкладок модалки Вход / Регистрация
     const tabLogin = document.getElementById('tab-login-btn');
     const tabRegister = document.getElementById('tab-register-btn');
     if (tabLogin && tabRegister) {
@@ -182,7 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 11. Кнопка Выхода из аккаунта
+    // 10. Кнопка Выхода из аккаунта
     const logoutBtn = document.getElementById('logout-btn');
     if (logoutBtn) {
         logoutBtn.addEventListener('click', () => {
