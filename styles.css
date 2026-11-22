@@ -247,115 +247,7 @@ nav a:hover, nav a.active {
 }
 
 /* ==========================================================================
-   5. ИНТЕРФЕЙС УМНОЙ ЛЕНТЫ НОВОСТЕЙ С КОЛЛАЖАМИ КАРТИНОК
-   ========================================================================== */
-.news-container {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.news-item {
-    background-color: #111827;
-    border: 1px solid #1f2937;
-    border-radius: 14px;
-    padding: 20px;
-    margin-bottom: 25px !important;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-    transition: transform 0.2s ease, border-color 0.2s ease;
-    animation: slideIn 0.3s ease;
-}
-
-.news-item:hover {
-    border-color: #22d3ee;
-    transform: translateY(-2px);
-}
-
-.news-item .news-title {
-    color: #ffffff !important;
-    font-size: 19px !important;
-    font-weight: 700 !important;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
-}
-
-.news-item .news-text {
-    color: #e5e7eb !important;
-    font-size: 14px !important;
-    line-height: 1.6 !important;
-}
-
-.news-item .news-date {
-    color: #22d3ee !important;
-    font-size: 11px !important;
-    letter-spacing: 1px;
-    margin-bottom: 6px !important;
-}
-
-@keyframes slideIn {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* Сетка изображений для новостного коллажа */
-.news-images-grid {
-    display: grid;
-    gap: 8px;
-    margin-top: 15px;
-    border-radius: 10px;
-    overflow: hidden;
-    width: 100%;
-}
-
-.news-images-grid.count-1 { grid-template-columns: 1fr; }
-.news-images-grid.count-2 { grid-template-columns: 1fr 1fr; }
-.news-images-grid.count-3 { grid-template-columns: 2fr 1fr; grid-template-rows: 120px 120px; }
-.news-images-grid.count-4 { grid-template-columns: 1fr 1fr; grid-template-rows: 120px 120px; }
-
-.news-images-grid.count-3 .news-img-wrapper:nth-child(1) {
-    grid-row: span 2;
-    height: 248px;
-}
-
-.news-img-wrapper {
-    position: relative;
-    width: 100%;
-    height: 180px;
-    background-color: #070a12;
-    overflow: hidden;
-}
-
-.news-images-grid.count-1 .news-img-wrapper {
-    height: 280px;
-}
-
-.news-img-item {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    cursor: pointer;
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out, transform 0.3s ease;
-}
-
-.news-img-item:hover {
-    transform: scale(1.03);
-}
-
-/* Скелетоны мерцания */
-.skeleton-shimmer {
-    background: linear-gradient(90deg, #070a12 25%, #111827 50%, #070a12 75%);
-    background-size: 200% 100%;
-    animation: shimmer-wave 1.5s infinite linear;
-}
-
-@keyframes shimmer-wave {
-    0% { background-position: 200% 0; }
-    100% { background-position: -200% 0; }
-}
-
-/* ==========================================================================
-   6. ПОИСК, ФИЛЬТРЫ И ДИНАМИЧЕСКИЕ ТОАСТЫ-УВЕДОМЛЕНИЯ
+   5. ПОИСК, ФИЛЬТРЫ И ДИНАМИЧЕСКИЕ ТОАСТЫ-УВЕДОМЛЕНИЯ
    ========================================================================== */
 #search-input:focus {
     border-color: #22d3ee !important;
@@ -432,7 +324,7 @@ nav a:hover, nav a.active {
 }
 
 /* ==========================================================================
-   7. МОДАЛЬНЫЕ ОКНА И АВТОРИЗАЦИЯ (KRISTALL ID)
+   6. МОДАЛЬНЫЕ ОКНА И АВТОРИЗАЦИЯ (KRISTALL ID)
    ========================================================================== */
 .modal-overlay {
     position: fixed;
@@ -548,7 +440,7 @@ nav a:hover, nav a.active {
 }
 
 /* ==========================================================================
-   8. ПОДВАЛ И КОПИРАЙТЫ
+   7. ПОДВАЛ И КОПИРАЙТЫ
    ========================================================================== */
 footer {
     background-color: #070a12;
@@ -560,7 +452,7 @@ footer {
 }
 
 /* ==========================================================================
-   9. ЕДИНЫЙ СУПЕР-БЛОК АДАПТИВНОСТИ ДЛЯ СМАРТФОНОВ (Меньше 768px)
+   8. ЕДИНЫЙ СУПЕР-БЛОК АДАПТИВНОСТИ ДЛЯ СМАРТФОНОВ (Меньше 768px)
    ========================================================================== */
 @media (max-width: 768px) {
     .main-layout { 
