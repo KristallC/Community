@@ -1,64 +1,170 @@
 // ==========================================
 // 3. ЗАГРУЗКА НОВОСТЕЙ И КАТАЛОГА С ФИЛЬТРАМИ
 // ==========================================
+const NEWS_PER_PAGE = 8;
+
+// Инициализация модального окна для просмотра картинок (создаётся один раз)
+function openVastaricLightbox(src) {
+    let modal = document.getElementById('vastaric-lightbox');
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'vastaric-lightbox';
+        modal.className = 'vastaric-lightbox';
+        modal.innerHTML = `
+            <button class="vastaric-lightbox-close" title="Закрыть (Esc)">×</button>
+            <img src="" alt="Просмотр изображения">
+        `;
+        document.body.appendChild(modal);
+
+        // Закрытие по клику на фон или крестик
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal || e.target.classList.contains('vastaric-lightbox-close')) {
+                modal.classList.remove('active');
+            }
+        });
+
+        // Закрытие по клавише Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                modal.classList.remove('active');
+            }
+        });
+    }
+
+    const img = modal.querySelector('img');
+    img.src = src;
+    requestAnimationFrame(() => modal.classList.add('active'));
+}
+
 async function loadNews() {
     const container = document.getElementById('news-container');
     if (!container) return;
+
     try {
         const response = await fetch('databases/news.json?v=' + new Date().getTime());
         const newsData = await response.json();
-        
-        container.innerHTML = ''; 
 
-        newsData.forEach(item => {
-            const newsItem = document.createElement('div');
-            newsItem.className = 'news-item';
+        container.innerHTML = '';
+        let visibleCount = 0;
 
-            // ГЕНЕРАЦИЯ УМНОЙ СЕТКИ ИЗОБРАЖЕНИЙ
-            let imagesHTML = '';
-            
-            // Проверяем, есть ли массив картинок и не пустой ли он
-            if (item.images && Array.isArray(item.images) && item.images.length > 0) {
-                // Ограничиваем коллаж максимум 4 картинками, чтобы не ломать верстку
-                const imgsToShow = item.images.slice(0, 4); 
-                const imgCount = imgsToShow.length;
+        // Создаём кнопку «Показать ещё» заранее
+        const loadMoreBtn = document.createElement('button');
+        loadMoreBtn.className = 'news-load-more';
 
-                imagesHTML = `<div class="news-images-grid count-${imgCount}">`;
-                
-                imgsToShow.forEach(src => {
-                    imagesHTML += `
-                        <div class="news-img-wrapper skeleton-shimmer">
-                            <img src="${src}" class="news-img-item" alt="Событие" loading="lazy">
-                        </div>`;
+        const renderBatch = () => {
+            // Удаляем кнопку перед добавлением новой порции новостей
+            if (loadMoreBtn.parentNode) loadMoreBtn.remove();
+
+            const nextBatch = newsData.slice(visibleCount, visibleCount + NEWS_PER_PAGE);
+
+            nextBatch.forEach(item => {
+                const newsItem = document.createElement('div');
+                newsItem.className = 'news-item';
+
+                // Проверяем наличие картинок
+                const hasImages = item.images && Array.isArray(item.images) && item.images.length > 0;
+                const imgsToShow = hasImages ? item.images.slice(0, 4) : [];
+
+                let imagesHTML = '';
+                if (imgsToShow.length > 0) {
+                    imagesHTML = `<div class="news-images-grid count-${imgsToShow.length}">`;
+                    imgsToShow.forEach(src => {
+                        imagesHTML += `
+                            <div class="news-img-wrapper skeleton-shimmer">
+                                <img src="${src}" class="news-img-item" alt="Изображение" loading="lazy">
+                            </div>`;
+                    });
+                    imagesHTML += `</div>`;
+                }
+
+                // Небольшой бейдж в шапке, чтобы юзер видел, что внутри есть фото
+                const mediaIndicator = imgsToShow.length > 0
+                    ? `<span class="news-media-badge">🖼 ${imgsToShow.length} фото</span>`
+                    : '';
+
+                newsItem.innerHTML = `
+                    <div class="news-header">
+                        <div class="news-header-info">
+                            <div class="news-meta">
+                                <span>${item.date}</span>
+                                ${mediaIndicator}
+                            </div>
+                            <h3 class="news-title">${item.title}</h3>
+                        </div>
+                        <div class="news-toggle-btn" aria-label="Развернуть полностью">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="news-body-wrapper">
+                        <div class="news-body-inner">
+                            <div class="news-body-content">
+                                <p class="news-text">${item.text}</p>
+                                ${imagesHTML}
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                // Клик по всей шапке (или стрелке) плавно разворачивает/сворачивает новость
+                const header = newsItem.querySelector('.news-header');
+                header.addEventListener('click', () => {
+                    newsItem.classList.toggle('is-open');
                 });
-                
-                imagesHTML += `</div>`;
-            }
 
-            // Собираем новостную карточку воедино
-            newsItem.innerHTML = `
-                <div class="news-date" style="color: #6b7280; font-size: 11px; font-weight: bold; text-align: left; margin-bottom: 4px;">${item.date}</div>
-                <div class="news-title" style="color: white; font-size: 18px; font-weight: bold; text-align: left; margin-bottom: 8px; line-height: 1.3;">${item.title}</div>
-                <p class="news-text" style="color: #9ca3af; font-size: 13px; line-height: 1.6; text-align: left; margin: 0; white-space: pre-line;">${item.text}</p>
-                ${imagesHTML}
-            `;
+                // Обработка картинок: скелетон, клик в Lightbox и защита от битых ссылок
+                const images = newsItem.querySelectorAll('.news-img-item');
+                images.forEach(img => {
+                    img.onload = () => {
+                        img.parentElement.classList.remove('skeleton-shimmer');
+                        img.style.opacity = '1';
+                    };
 
-            // Логика плавного проявления картинок и отключения скелетона мерцания
-            const images = newsItem.querySelectorAll('.news-img-item');
-            images.forEach(img => {
-                img.onload = () => {
-                    img.parentElement.classList.remove('skeleton-shimmer'); // Выключаем мерцание
-                    img.style.opacity = '1'; // Плавно проявляем картинку
-                };
-                // Если кликнули на картинку — она красиво откроется в новой вкладке во весь размер
-                img.addEventListener('click', () => { window.open(img.src, '_blank'); });
+                    img.onerror = () => {
+                        const wrapper = img.parentElement;
+                        const grid = wrapper.parentElement;
+                        wrapper.remove(); // Убираем сломанное фото
+
+                        // Пересчитываем сетку, чтобы оставшиеся фото не растянулись криво
+                        if (grid) {
+                            const remaining = grid.children.length;
+                            if (remaining === 0) {
+                                grid.remove();
+                            } else {
+                                grid.className = `news-images-grid count-${remaining}`;
+                            }
+                        }
+                    };
+
+                    img.addEventListener('click', (e) => {
+                        e.stopPropagation(); // Чтобы клик по фото случайно не свернул новость
+                        openVastaricLightbox(img.src);
+                    });
+                });
+
+                container.appendChild(newsItem);
             });
 
-            container.appendChild(newsItem);
-        });
+            visibleCount += nextBatch.length;
+
+            // Если в базе ещё остались новости — показываем внизу индикатор-кнопку
+            const remainingCount = newsData.length - visibleCount;
+            if (remainingCount > 0) {
+                loadMoreBtn.innerHTML = `<span>Показать больше (ещё ${remainingCount})</span> <span>↓</span>`;
+                container.appendChild(loadMoreBtn);
+            }
+        };
+
+        loadMoreBtn.addEventListener('click', renderBatch);
+
+        // Загружаем первую порцию
+        renderBatch();
+
     } catch (e) {
         console.error(e);
-        container.innerHTML = '<div class="news-item"><p style="color: #ef4444; margin: 0; font-size: 13px;">❌ Ошибка загрузки ленты событий.</p></div>';
+        container.innerHTML = '<div class="news-item"><p style="color: #ef4444; margin: 0; font-size: 13px;">❌ Ошибка загрузки ленты.</p></div>';
     }
 }
 
