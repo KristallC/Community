@@ -1,0 +1,282 @@
+/* ==========================================================================
+   ИНТЕРФЕЙС УМНОЙ ЛЕНТЫ НОВОСТЕЙ (АККОРДЕОН + КОЛЛАЖИ + LIGHTBOX)
+   ========================================================================== */
+
+.news-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* КАРТОЧКА НОВОСТИ */
+.news-item {
+    background-color: #111827;
+    border: 1px solid #1f2937;
+    border-radius: 14px;
+    padding: 16px 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s ease, border-color 0.25s ease;
+    animation: slideIn 0.3s ease;
+}
+
+.news-item:hover {
+    border-color: #22d3ee;
+    transform: translateY(-2px);
+}
+
+.news-item.is-open {
+    border-color: rgba(34, 211, 238, 0.5);
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* КЛИКАБЕЛЬНАЯ ШАПКА НОВОСТИ */
+.news-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.news-header-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.news-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #22d3ee;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    margin-bottom: 4px;
+}
+
+.news-media-badge {
+    background: rgba(34, 211, 238, 0.1);
+    border: 1px solid rgba(34, 211, 238, 0.25);
+    color: #22d3ee;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0;
+}
+
+.news-title {
+    color: #ffffff;
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.35;
+    margin: 0;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.08);
+    transition: color 0.2s ease;
+}
+
+.news-header:hover .news-title {
+    color: #22d3ee;
+}
+
+/* КНОПКА СО СТРЕЛКОЙ */
+.news-toggle-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: #1f2937;
+    border: 1px solid #374151;
+    color: #9ca3af;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.news-header:hover .news-toggle-btn {
+    border-color: #22d3ee;
+    color: #22d3ee;
+}
+
+.news-item.is-open .news-toggle-btn {
+    background: rgba(34, 211, 238, 0.15);
+    border-color: #22d3ee;
+    color: #22d3ee;
+    transform: rotate(180deg);
+}
+
+/* ПЛАВНАЯ АНИМАЦИЯ РАСКРЫТИЯ ТЕЛА НОВОСТИ */
+.news-body-wrapper {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.news-item.is-open .news-body-wrapper {
+    grid-template-rows: 1fr;
+}
+
+.news-body-inner {
+    overflow: hidden;
+}
+
+.news-body-content {
+    padding-top: 14px;
+    margin-top: 14px;
+    border-top: 1px solid #1f2937;
+}
+
+.news-text {
+    color: #e5e7eb;
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0;
+    white-space: pre-line;
+}
+
+/* СЕТКА ИЗОБРАЖЕНИЙ ДЛЯ НОВОСТНОГО КОЛЛАЖА */
+.news-images-grid {
+    display: grid;
+    gap: 8px;
+    margin-top: 15px;
+    border-radius: 10px;
+    overflow: hidden;
+    width: 100%;
+}
+
+.news-images-grid.count-1 { grid-template-columns: 1fr; }
+.news-images-grid.count-2 { grid-template-columns: 1fr 1fr; }
+.news-images-grid.count-3 { grid-template-columns: 2fr 1fr; grid-template-rows: 120px 120px; }
+.news-images-grid.count-4 { grid-template-columns: 1fr 1fr; grid-template-rows: 120px 120px; }
+
+.news-images-grid.count-3 .news-img-wrapper:nth-child(1) {
+    grid-row: span 2;
+    height: 248px;
+}
+
+.news-img-wrapper {
+    position: relative;
+    width: 100%;
+    height: 180px;
+    background-color: #070a12;
+    overflow: hidden;
+}
+
+.news-images-grid.count-1 .news-img-wrapper {
+    height: 280px;
+}
+
+.news-img-item {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease;
+}
+
+.news-img-item:hover {
+    transform: scale(1.03);
+}
+
+/* СКЕЛЕТОНЫ МЕРЦАНИЯ */
+.skeleton-shimmer {
+    background: linear-gradient(90deg, #070a12 25%, #111827 50%, #070a12 75%);
+    background-size: 200% 100%;
+    animation: shimmer-wave 1.5s infinite linear;
+}
+
+@keyframes shimmer-wave {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* КНОПКА «ПОКАЗАТЬ ЕЩЁ» ВНИЗУ ЛЕНТЫ */
+.news-load-more {
+    width: 100%;
+    padding: 12px;
+    margin-top: 4px;
+    background: #111827;
+    border: 1px dashed #374151;
+    border-radius: 12px;
+    color: #9ca3af;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.news-load-more:hover {
+    border-color: #22d3ee;
+    color: #22d3ee;
+    background: rgba(34, 211, 238, 0.05);
+}
+
+/* ПРОСМОТРЩИК КАРТИНОК (LIGHTBOX) */
+.vastaric-lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(7, 10, 18, 0.88);
+    backdrop-filter: blur(8px);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+}
+
+.vastaric-lightbox.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.vastaric-lightbox img {
+    max-width: 92vw;
+    max-height: 88vh;
+    border-radius: 12px;
+    border: 1px solid #374151;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+    transform: scale(0.95);
+    transition: transform 0.25s ease;
+}
+
+.vastaric-lightbox.active img {
+    transform: scale(1);
+}
+
+.vastaric-lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    background: #1f2937;
+    border: 1px solid #374151;
+    color: #f9fafb;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.vastaric-lightbox-close:hover {
+    background: #ef4444;
+    border-color: #ef4444;
+}
