@@ -511,3 +511,25 @@ footer {
         transform: rotate(-45deg) translate(5px, -6px);
     }
 }
+
+/* ГЛОБАЛЬНЫЙ ЭФФЕКТ ЗАГРУЗКИ (SHIMMER) */
+.skeleton-shimmer {
+    position: relative;
+    overflow: hidden;
+    background-color: #111827;
+    background-image: linear-gradient(
+        90deg,
+        #111827 0%,
+        #1f2937 45%,
+        #2b3544 50%,
+        #1f2937 55%,
+        #111827 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer-wave 1.4s infinite linear;
+}
+
+@keyframes shimmer-wave {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
