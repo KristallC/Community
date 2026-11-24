@@ -7,7 +7,7 @@ let currentTypeFilter = 'all';
 let currentPlatFilter = 'all';
 let currentUser = JSON.parse(localStorage.getItem('user')) || null;
 
-// ФИРМЕННЫЕ ВСПОЛЫВАЮЩИЕ УВЕДОМЛЕНИЯ KRISTALL (БЕЗ ALERT)
+// ФИРМЕННЫЕ ВСПОЛЫВАЮЩИЕ УВЕДОМЛЕНИЯ
 function showKristallToast(message, icon = "⚡") {
     const toast = document.getElementById('kristall-toast');
     if (!toast) { return; }
