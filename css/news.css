@@ -186,18 +186,6 @@
     transform: scale(1.03);
 }
 
-/* СКЕЛЕТОНЫ МЕРЦАНИЯ */
-.skeleton-shimmer {
-    background: linear-gradient(90deg, #070a12 25%, #111827 50%, #070a12 75%);
-    background-size: 200% 100%;
-    animation: shimmer-wave 1.5s infinite linear;
-}
-
-@keyframes shimmer-wave {
-    0% { background-position: 200% 0; }
-    100% { background-position: -200% 0; }
-}
-
 /* КНОПКА «ПОКАЗАТЬ ЕЩЁ» ВНИЗУ ЛЕНТЫ */
 .news-load-more {
     width: 100%;
