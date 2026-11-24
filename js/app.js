@@ -13,7 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // 2. Отрисовка всех шапок, профилей и виджетов при заходе на страницу
     if (typeof updateHeaderProfile === 'function') updateHeaderProfile();
     if (typeof buildProfilePage === 'function') buildProfilePage();
-    if (typeof buildMainSideProfile === 'function') buildMainSideProfile();
     if (typeof applyAvatarBorderColor === 'function') applyAvatarBorderColor();
 
     // 3. Логика ежедневного бонуса профиля (Раз в 24 часа)
