@@ -881,57 +881,6 @@ function executeFinalPurchase() {
     if (typeof updateHeaderProfile === 'function') updateHeaderProfile();
 }
 
-// ==========================================================================
-// ФУНКЦИЯ ОТРИСОВКИ ВИДЖЕТА НА ГЛАВНОЙ СТРАНИЦЕ (ФИНАЛЬНЫЙ ЗАМЫКАЮЩИЙ БЛОК)
-// ==========================================================================
-function buildMainSideProfile() {
-    const sideBox = document.getElementById('main-side-profile');
-    if (!sideBox) return; 
-
-    if (currentUser) {
-        let roleName = "Пользователь";
-        let nameColor = "white";
-        if (currentUser.clearance_level === 2) { roleName = "Элита"; nameColor = "#f97316"; }
-        else if (currentUser.clearance_level === 3) { roleName = "Создатель"; nameColor = "#10b981"; }
-        else if (currentUser.clearance_level === 4) { roleName = "Модератор"; nameColor = "#a855f7"; }
-        else if (currentUser.clearance_level === 5) { roleName = "Администратор"; nameColor = "#ef4444"; }
-        else if (currentUser.clearance_level === 6) { roleName = "Владелец"; nameColor = "#22d3ee"; }
-
-        const currentBorderColor = currentUser.avatar_color || "#22d3ee"; 
-        
-        const hasAuraShadow = currentUser.inventory.includes("💥 Неоновая Аура") 
-            ? `box-shadow: 0 0 15px ${currentBorderColor}; border: 2px solid ${currentBorderColor};` 
-            : `border: 2px solid ${currentBorderColor};`; 
-
-        const sideAvatarHTML = (currentUser.avatar_url && currentUser.avatar_url.startsWith('http'))
-            ? `<img src="${currentUser.avatar_url}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">`
-            : `<svg viewBox="0 0 24 24" style="width:60%; height:60%; fill:${currentBorderColor};"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>`;
-
-        sideBox.innerHTML = `
-            <div style="width: 55px; height: 55px; border-radius: 50%; ${hasAuraShadow} display: flex; align-items: center; justify-content: center; background: #1f2937; margin-bottom: 5px; overflow:hidden;">
-                ${sideAvatarHTML}
-            </div>
-            <div style="color: ${nameColor}; font-weight: bold; font-size: 16px;">${currentUser.username}</div>
-            <div style="color: ${nameColor}; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.8;">${roleName}</div>
-            
-            <div style="width: 100%; margin-top: 10px; border-top: 1px solid #1f2937; padding-top: 10px; display: flex; justify-content: space-around; font-size: 13px;">
-                <div style="color: #9ca3af;">Баланс: <strong style="color: #10b981;">${currentUser.balance} ❂</strong></div>
-            </div>
-            <a href="profile.html" style="width: 100%; margin-top: 12px; background: #1f2937; color: white; border: 1px solid #374151; padding: 8px; border-radius: 6px; text-decoration: none; font-size: 12px; font-weight: bold; transition: 0.2s; text-align:center;" onmouseenter="this.style.borderColor='#22d3ee'" onmouseleave="this.style.borderColor='#374151'">Открыть личный кабинет</a>
-        `;
-    } else {
-        sideBox.innerHTML = `
-            <div style="width: 50px; height: 50px; border-radius: 50%; border: 2px dashed #374151; display: flex; align-items: center; justify-content: center; background: #111827; margin-bottom: 5px;">
-                <svg viewBox="0 0 24 24" style="width:50%; height:50%; fill:#4b5563;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
-            </div>
-            <div style="color: white; font-weight: bold; font-size: 15px;">ID не найден</div>
-            <div style="color: #6b7280; font-size: 12px; margin-bottom: 8px;">Войдите, чтобы копить монеты и открывать сундуки!</div>
-            <button class="auth-submit-btn" style="width: 100%; padding: 8px; font-size: 12px;" onclick="document.querySelector('.pc-profile-block').click()">Войти в аккаунт</button>
-        `;
-    }
-    if (typeof applyAvatarBorderColor === 'function') applyAvatarBorderColor();
-}
-
 // ==========================================
 // 3.В. ЗАГРУЗКА И ДИНАМИЧЕСКИЙ ВЫВОД СОБЫТИЙ
 // ==========================================
