@@ -3,7 +3,7 @@
 // ==========================================
 document.addEventListener('DOMContentLoaded', () => {
     // 1. Конвейер параллельной загрузки новостей, проектов, маркетплейса и СОБЫТИЙ
-    Promise.all([loadNews(), loadProjectsPage(), buildProjectTemplatePage(), loadMarketplacePage(), loadCommunityEvents()])
+    Promise.all([loadNews(), loadProjectsPage(), buildProjectTemplatePage(), loadMarketplacePage(), loadCommunityEvents(), loadTopProjects()])
         .then(() => { 
             if (typeof initFiltersAndSearch === 'function') initFiltersAndSearch(); 
             if (typeof initMarketplaceFilters === 'function') initMarketplaceFilters();
