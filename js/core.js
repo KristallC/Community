@@ -26,8 +26,7 @@ function localRegister(username, email, password) {
     currentUser = newUser;
     showKristallToast(`ID для ${username} успешно создан!`, "🎉");
     updateHeaderProfile();
-    if (typeof buildProfilePage === 'function') buildProfilePage(); 
-    if (typeof buildMainSideProfile === 'function') buildMainSideProfile();
+    if (typeof buildProfilePage === 'function') buildProfilePage();
     document.getElementById('auth-modal').style.display = 'none';
 }
 
