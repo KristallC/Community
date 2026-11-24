@@ -168,6 +168,123 @@ async function loadNews() {
     }
 }
 
+let cachedFeaturedProjects = [];
+
+const UNIVERSAL_PROJECT_SVG = `
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+        <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+        <line x1="12" y1="22.08" x2="12" y2="12"></line>
+    </svg>
+`;
+
+async function loadTopProjects() {
+    const container = document.getElementById('top-projects-list');
+    const shuffleBtn = document.getElementById('shuffle-top-projects');
+    if (!container) return;
+
+    try {
+        // Используем ту же базу, что и каталог
+        const url = typeof PROJECTS_URL !== 'undefined' ? PROJECTS_URL : 'databases/projects.json';
+        const response = await fetch(url + '?v=' + new Date().getTime());
+        const allProjects = await response.json();
+
+        cachedFeaturedProjects = allProjects.filter(p => p.is_featured === true);
+
+        if (shuffleBtn) {
+            shuffleBtn.style.display = cachedFeaturedProjects.length > 3 ? 'flex' : 'none';
+            shuffleBtn.onclick = () => renderTopProjects(container);
+        }
+
+        renderTopProjects(container);
+    } catch (e) {
+        console.error('[Top Projects] Ошибка загрузки:', e);
+        container.innerHTML = '<div style="color: #ef4444; font-size: 12px;">Не удалось загрузить проекты</div>';
+    }
+}
+
+function renderTopProjects(container) {
+    const MAX_SLOTS = 3;
+    container.innerHTML = '';
+
+    const shuffled = [...cachedFeaturedProjects];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+
+    const selected = shuffled.slice(0, MAX_SLOTS);
+
+    selected.forEach((project, index) => {
+        const delay = index * 0.08;
+        const firstShot = (Array.isArray(project.screenshots) && project.screenshots.length > 0)
+            ? project.screenshots[0].src
+            : null;
+
+        const link = document.createElement('a');
+        link.href = `project-template.html?project=${project.id}`;
+        link.className = 'top-project-item';
+        link.style.animationDelay = `${delay}s`;
+
+        link.innerHTML = `
+            <div class="top-project-thumb ${firstShot ? 'skeleton-shimmer' : ''}">
+                ${firstShot 
+                    ? `<img src="${firstShot}" alt="${project.title}" style="opacity: 0; transition: opacity 0.3s ease;">` 
+                    : UNIVERSAL_PROJECT_SVG
+                }
+            </div>
+            <div class="top-project-info">
+                <div class="top-project-name">${project.title}</div>
+                <div class="top-project-desc">${project.short_desc}</div>
+            </div>
+        `;
+
+        const img = link.querySelector('img');
+        if (img) {
+            const showImage = () => {
+                img.parentElement.classList.remove('skeleton-shimmer');
+                img.style.opacity = '1';
+            };
+
+            // Если картинка уже в кэше браузера — показываем сразу, не дожидаясь onload
+            if (img.complete && img.naturalWidth > 0) {
+                showImage();
+            } else {
+                img.onload = showImage;
+                img.onerror = () => {
+                    img.parentElement.classList.remove('skeleton-shimmer');
+                    img.parentElement.innerHTML = UNIVERSAL_PROJECT_SVG;
+                };
+            }
+        }
+
+        container.appendChild(link);
+    });
+
+    const emptySlots = MAX_SLOTS - selected.length;
+    for (let i = 0; i < emptySlots; i++) {
+        const delay = (selected.length + i) * 0.08;
+        const placeholder = document.createElement('div');
+        placeholder.className = 'top-project-placeholder';
+        placeholder.style.animationDelay = `${delay}s`;
+        placeholder.style.animationFillMode = 'forwards';
+        placeholder.style.opacity = '0';
+
+        placeholder.addEventListener('animationend', () => {
+            placeholder.style.opacity = '0.55';
+        });
+
+        placeholder.innerHTML = `
+            <div class="top-project-thumb">${UNIVERSAL_PROJECT_SVG}</div>
+            <div class="top-project-info">
+                <div class="top-project-name">Место свободно</div>
+                <div class="top-project-desc">Ожидание релиза от Создателей</div>
+            </div>
+        `;
+        container.appendChild(placeholder);
+    }
+}
+
 async function loadProjectsPage() {
     const gridContainer = document.getElementById('projects-grid');
     if (!gridContainer) return;
