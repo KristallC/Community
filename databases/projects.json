@@ -7,14 +7,7 @@
     "developer": "dev_kristall",
     "version": "b1.0.5",
     "price": 0,
-    "downloads": [
-      {
-        "label": "Скачать APK",
-        "url": "https://github.com/KristallC/Community/releases/download/b1.0.5/MoneyEmpire.apk",
-        "os": "android",
-        "size": "59.1 МБ"
-      }
-    ],
+    "downloads": [{"label": "Скачать APK","url": "https://github.com/KristallC/Community/releases/download/b1.0.5/MoneyEmpire.apk","os": "android","size": "59.1 МБ"}],
     "short_desc": "Экономическая стратегия-симулятор. Постройте бизнес, управляйте криптовалютой и создайте величайшую финансовую империю.",
     "full_desc": "Money Empire — это экономический симулятор-стратегия для Android, в котором вы начнете свой путь с обычного карманного капитала и сможете вырасти до владельца крупнейшей мировой корпорации. Управляйте бизнесами, инвестируйте в криптовалюту, рискуйте в казино и станьте богатейшим игроком!",
     "show_instruction": true,
@@ -38,24 +31,13 @@
     "developer": "dev_kristall",
     "version": "v1.2",
     "price": 0,
-    "downloads": [
-      {
-        "label": "Скачать APK",
-        "url": "https://github.com/KristallC/Projects/releases/download/apps/KCounter_v1.2.apk",
-        "os": "android",
-        "size": "45.6 МБ"
-      }
-    ],
+    "downloads": [{"label": "Скачать APK","url": "https://github.com/KristallC/Projects/releases/download/apps/KCounter_v1.2.apk","os": "android","size": "45.6 МБ"}],
     "short_desc": "Умный, полностью кастомизируемый счётчик с поддержкой HEX-цветов, быстрыми действиями, категориями в меню и адаптивным режимом для планшетов.",
     "full_desc": "KCounter — это современное, легкое и полностью бесплатное Android-приложение, разработанное Kristall Studio. Оно превращает обычный подсчёт данных в приятный, кастомизируемый и плавный процесс.",
     "show_instruction": true,
     "instruction_type": "android",
     "trailer_url": "",
-    "screenshots": [
-      {"src": "https://github.com/KristallC/Projects/blob/main/KCounter/screenshots/Polish_20260701_003627860.jpg?raw=true"},
-      {"src": "https://github.com/KristallC/Projects/blob/main/KCounter/screenshots/IMG_20260701_003706.jpg?raw=true", "orient": "ver"},
-      {"src": "https://github.com/KristallC/Projects/blob/main/KCounter/screenshots/IMG_20260701_003748.jpg?raw=true", "orient": "ver"}
-    ],
+    "screenshots": [{"src": "https://github.com/KristallC/Projects/blob/main/KCounter/screenshots/Polish_20260701_003627860.jpg?raw=true"},{"src": "https://github.com/KristallC/Projects/blob/main/KCounter/screenshots/IMG_20260701_003706.jpg?raw=true", "orient": "ver"},{"src": "https://github.com/KristallC/Projects/blob/main/KCounter/screenshots/IMG_20260701_003748.jpg?raw=true", "orient": "ver"}],
     "whats_new": [
       "улучшена навигация системными кнопками",
       "исправлены ошибки с кнопками '+' и '-', связанные с неработающими вибрацией и режимом для левшей в горизонтальном режиме",
@@ -72,14 +54,7 @@
     "developer": "dev_kristall",
     "version": "22/08/2026",
     "price": 0,
-    "downloads": [
-      {
-        "label": "Открыть в Roblox",
-        "url": "https://www.roblox.com/share?code=40a08bc715e283409f0679ba7789b46f&type=ExperienceDetails&stamp=1785418174848",
-        "os": "site",
-        "size": "16+"
-      }
-    ],
+    "downloads": [{"label": "Открыть в Roblox","url": "https://www.roblox.com/share?code=40a08bc715e283409f0679ba7789b46f&type=ExperienceDetails&stamp=1785418174848","os": "site","size": "16+"}],
     "short_desc": "Весëлая арена с 4 командами, где нужно просто сражаться, используя оружие.",
     "full_desc": "🏰 Добро пожаловать в WAR 4! Классический тактический PvP-шутер с участием четырех команд, вдохновленный легендарным стилем KoGaMa. Выбирай команду, защищай свой замок и уничтожай соперников!",
     "show_instruction": false,
@@ -96,13 +71,7 @@
       {"src": "https://github.com/KristallC/Projects/blob/main/War%204/screenshots/RobloxScreenShot20261019_222944173.png?raw=true"},
       {"src": "https://github.com/KristallC/Projects/blob/main/War%204/screenshots/RobloxScreenShot20261019_223054785.png?raw=true"}
     ],
-    "socials": [
-      {
-        "type": "discord",
-        "url": "https://discord.gg/wHtpgGZUa",
-        "label": "Сервер в Discord"
-      }
-    ],
+    "socials": [{"type": "discord","url": "https://discord.gg/wHtpgGZUa","label": "Сервер в Discord"}],
     "whats_new": [
       "позы стоек с оружием",
       "эффект получения урона",
@@ -120,17 +89,10 @@
     "developer": "dev_kristall",
     "version": "0.8.0",
     "price": 0,
-    "downloads": [
-      {
-        "label": "Скачать EXE",
-        "url": "https://github.com/KristallC/Projects/releases/download/games/kritver.0.8.0.exe",
-        "os": "windows",
-        "size": "10 МБ"
-      }
-    ],
+    "downloads": [{"label": "Скачать EXE","url": "https://github.com/KristallC/Projects/releases/download/games/kritver.0.8.0.exe","os": "windows","size": "10 МБ"}],
     "short_desc": "Мой первый проект, написанный на Python во время обучения",
     "full_desc": "Добро пожаловать в первый официальный релиз консольной программы Kritver! Это мой самый первый проект, написанный на Python в PyCharm во время обучения на курсах программирования, и теперь он наконец-то доступен для всех.",
-    "show_instruction": true,
+    "show_instruction": false,
     "instruction_type": "windows",
     "trailer_url": "",
     "screenshots": [],
@@ -144,22 +106,16 @@
     "type": "game",
     "platforms": ["Android"],
     "developer": "dev_kristall",
-    "version": "v1.0.0",
+    "version": "1.0.1",
     "price": 0,
-    "downloads": [
-      {
-        "label": "Скачать APK",
-        "url": "https://github.com/KristallC/Projects/releases/download/com.vastaric.mathrunner/MathRunner.apk",
-        "os": "android",
-        "size": "30.3 МБ"
-      }
-    ],
+    "downloads": [{"label": "Скачать APK","url": "https://github.com/KristallC/Projects/releases/download/com.vastaric.mathrunner/MathRunner.apk","os": "android","size": "30.3 МБ"}],
     "short_desc": "Геймифицированный математический тренажёр.",
     "full_desc": "Math Runner — это мобильная игра, сделанная в Android Studio, в которой можно скоротать время, решая математические примеры. Сначала вам может быть легко, но с каждым уровнем примеры усложняются и далеко не каждый сможет добраться и до 10, так что проверьте свои вычислительные способности и докажите, что вы считаете не хуже калькулятора!",
     "show_instruction": true,
     "instruction_type": "android",
     "trailer_url": "",
-    "screenshots": [],
+    "screenshots": [{"src":"https://github.com/KristallC/Projects/blob/main/Math%20Runner/screenshots/20261128_130620.jpg?raw=true"},{"src":"https://github.com/KristallC/Projects/blob/main/Math%20Runner/screenshots/Polish_20261128_133849636.jpg?raw=true", "orient":"ver"},{"src":"https://github.com/KristallC/Projects/blob/main/Math%20Runner/screenshots/Polish_20261128_134101508.jpg?raw=true", "orient":"ver"},{"src":"https://github.com/KristallC/Projects/blob/main/Math%20Runner/screenshots/Polish_20261128_134121173.jpg?raw=true", "orient":"ver"},{"src":"https://github.com/KristallC/Projects/blob/main/Math%20Runner/screenshots/Polish_20261128_134140110.jpg?raw=true", "orient":"ver"}],
+    "socials": [],
     "whats_new": [],
     "is_featured": true
   }
