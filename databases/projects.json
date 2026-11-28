@@ -21,24 +21,14 @@
     "instruction_type": "android",
     "trailer_url": "https://rutube.ru/play/embed/7adb3552055f07a3ecbfd37e45d51e12/?p=bOHBsgUWlohtqmmpMZJGZw",
     "screenshots": [
-      {
-        "src": "https://github.com/KristallC/GameScreenshots/blob/main/MoneyEmpire/Screenshot_2026-06-03-14-49-31-426_com.kristall.moneyempire-edit.jpg?raw=true",
-        "orient": "hor"
-      },
-      {
-        "src": "https://github.com/KristallC/GameScreenshots/blob/main/MoneyEmpire/Screenshot_2026-06-03-14-49-52-097_com.kristall.moneyempire.jpg?raw=true"
-      },
-      {
-        "src": "https://github.com/KristallC/GameScreenshots/blob/main/MoneyEmpire/Screenshot_2026-06-03-14-50-02-976_com.kristall.moneyempire.jpg?raw=true"
-      },
-      {
-        "src": "https://github.com/KristallC/GameScreenshots/blob/main/MoneyEmpire/IMG_20260603_145123_148.jpg?raw=true"
-      },
-      {
-        "src": "https://github.com/KristallC/GameScreenshots/blob/main/MoneyEmpire/IMG_20260603_145217.jpg?raw=true"
-      }
+      {"src": "https://github.com/KristallC/GameScreenshots/blob/main/MoneyEmpire/Screenshot_2026-06-03-14-49-31-426_com.kristall.moneyempire-edit.jpg?raw=true", "orient": "hor"},
+      {"src": "https://github.com/KristallC/GameScreenshots/blob/main/MoneyEmpire/Screenshot_2026-06-03-14-49-52-097_com.kristall.moneyempire.jpg?raw=true"},
+      {"src": "https://github.com/KristallC/GameScreenshots/blob/main/MoneyEmpire/Screenshot_2026-06-03-14-50-02-976_com.kristall.moneyempire.jpg?raw=true"},
+      {"src": "https://github.com/KristallC/GameScreenshots/blob/main/MoneyEmpire/IMG_20260603_145123_148.jpg?raw=true"},
+      {"src": "https://github.com/KristallC/GameScreenshots/blob/main/MoneyEmpire/IMG_20260603_145217.jpg?raw=true"}
     ],
-    "whats_new": []
+    "whats_new": [],
+    "is_featured": false
   },
   {
     "id": "kcounter",
@@ -62,17 +52,9 @@
     "instruction_type": "android",
     "trailer_url": "",
     "screenshots": [
-      {
-        "src": "https://github.com/KristallC/Projects/blob/main/KCounter/screenshots/Polish_20260701_003627860.jpg?raw=true"
-      },
-      {
-        "src": "https://github.com/KristallC/Projects/blob/main/KCounter/screenshots/IMG_20260701_003706.jpg?raw=true",
-        "orient": "ver"
-      },
-      {
-        "src": "https://github.com/KristallC/Projects/blob/main/KCounter/screenshots/IMG_20260701_003748.jpg?raw=true",
-        "orient": "ver"
-      }
+      {"src": "https://github.com/KristallC/Projects/blob/main/KCounter/screenshots/Polish_20260701_003627860.jpg?raw=true"},
+      {"src": "https://github.com/KristallC/Projects/blob/main/KCounter/screenshots/IMG_20260701_003706.jpg?raw=true", "orient": "ver"},
+      {"src": "https://github.com/KristallC/Projects/blob/main/KCounter/screenshots/IMG_20260701_003748.jpg?raw=true", "orient": "ver"}
     ],
     "whats_new": [
       "улучшена навигация системными кнопками",
@@ -127,7 +109,8 @@
       "новый режим слежения камеры",
       "внутриигровые звуки",
       "исправления ошибок"
-    ]
+    ],
+    "is_featured": false
   },
   {
     "id": "kritver",
@@ -152,6 +135,32 @@
     "trailer_url": "",
     "screenshots": [],
     "socials": [],
-    "whats_new": []
+    "whats_new": [],
+    "is_featured": false
+  },
+  {
+    "id": "com.vastaric.mathrunner",
+    "title": "Math Runner",
+    "type": "game",
+    "platforms": ["Android"],
+    "developer": "dev_kristall",
+    "version": "v1.0.0",
+    "price": 0,
+    "downloads": [
+      {
+        "label": "Скачать APK",
+        "url": "https://github.com/KristallC/Projects/releases/download/com.vastaric.mathrunner/MathRunner.apk",
+        "os": "android",
+        "size": "30.3 МБ"
+      }
+    ],
+    "short_desc": "Геймифицированный математический тренажёр.",
+    "full_desc": "Math Runner — это мобильная игра, сделанная в Android Studio, в которой можно скоротать время, решая математические примеры. Сначала вам может быть легко, но с каждым уровнем примеры усложняются и далеко не каждый сможет добраться и до 10, так что проверьте свои вычислительные способности и докажите, что вы считаете не хуже калькулятора!",
+    "show_instruction": true,
+    "instruction_type": "android",
+    "trailer_url": "",
+    "screenshots": [],
+    "whats_new": [],
+    "is_featured": true
   }
 ]
